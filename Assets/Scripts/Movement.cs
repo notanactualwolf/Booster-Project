@@ -7,10 +7,14 @@ public class Movement : MonoBehaviour
     Rigidbody rb;
     [SerializeField] float pushForce = 1;
     [SerializeField] float rotationForce = 1;
+    audioPlayer audioPlayer;
+    AudioSource AudioSource;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioPlayer = FindObjectOfType<audioPlayer>();
+        AudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -23,6 +27,14 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up * pushForce * Time.deltaTime);
+            if (!AudioSource.isPlaying)
+            {
+                audioPlayer.playSound(0);
+            }
+        }
+        else
+        {
+            AudioSource.Stop();
         }
     }
     private void rotate()
