@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float rotationForce = 1;
     audioPlayer audioPlayer;
     AudioSource AudioSource;
+    bool isAlive = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,12 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        push();
-        rotate();
+        if (isAlive)
+        {
+            push();
+            rotate();
+        }
+        
     }
     private void push()
     {
@@ -52,5 +57,8 @@ public class Movement : MonoBehaviour
             rb.freezeRotation = false;
         }
     }
-
+    public void dies()
+    {
+        isAlive = false;
+    }
 }
